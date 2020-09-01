@@ -3,7 +3,7 @@ import speech_recognition
 from datetime import date, datetime
 import sys
 
-def voice_recognition:
+def voice_recognition():
     robot_ear=speech_recognition.Recognizer()
     robot_mouth= pyttsx3.init()
     robot_brain=""
@@ -28,9 +28,11 @@ def voice_recognition:
             robot_brain="I can't hear you, try again"
         elif 'hello' in you:
             robot_brain="Congratulation, correct password"
+            return True
         elif "today" in you:
             today = date.today()
             robot_brain = today.strftime("%B %d, %Y")
+            return False
         elif "time" in you:
             now = datetime.now()
             robot_brain=now.strftime("%H hours %M minutes %S seconds")
@@ -42,10 +44,8 @@ def voice_recognition:
             sys.exit()
         else:
             robot_brain="Wrong password, try again"
+            return False
 
         print("Robot:"+ robot_brain)
         robot_mouth.say(robot_brain)
         robot_mouth.runAndWait()
-voice_recognition()
-
-
