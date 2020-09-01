@@ -1,7 +1,7 @@
 from tkinter import *
 from tkinter import messagebox
 from PIL import ImageTk, Image
-from VoiceRecognition import voice_recognition
+from voicerecognition import voice_recognition
 
 def voiceRec():
     if voice_recognition() == False:
