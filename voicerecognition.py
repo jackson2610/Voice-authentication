@@ -1,53 +1,32 @@
-import pyttsx3
-import speech_recognition
-from datetime import date, datetime
-import sys
-open=1
-close=2
-message= int(input('input message:'))
-if message==1:
-    def voice_recognition():
-        robot_ear=speech_recognition.Recognizer()
-        robot_mouth= pyttsx3.init()
-        robot_brain=""
-        while True:
-            with speech_recognition.Microphone() as mic:
-                print("Robot: Password Authentication Please")
-                audio=robot_ear.listen(mic)
+from tkinter import *
+from tkinter import messagebox
+from PIL import ImageTk, Image
+from VoiceRecognition import voice_recognition
 
-            print("Robot:...")
+def voiceRec():
+    loading.config(text = 'Voice Recognition Active.....')
+    if voice_recognition() == False:
+        voiceRec
 
-            try:
-                you=robot_ear.recognize_google(audio)
-            except:
-                you=""
+    messagebox.showinfo("Success", "Login Successful")
+    loading.config(text = 'Login Sucessful....')
 
-            print("You: " + you)
+app = Tk()
 
+app.geometry('600x600')
+messagebox.showinfo("Info", "Welcome to JTech")
 
-            if you=="":
-                robot_brain="I can't hear you, try again"
-            elif 'hello' in you:
-                robot_brain="Congratulation, correct password"
-                return True
-            elif "stop" in you:
-                robot_brain='Goodbye'
-                print("Robot:"+ robot_brain)
-                robot_mouth.say(robot_brain)
-                robot_mouth.runAndWait()
-                sys.exit()
-            else:
-                robot_brain="Wrong password, try again"
-                return False
+user_Label = Label(app, text="Welcome To JTech", font= "Helvetica 40", fg = 'blue')
+user_Label.pack(pady = 20)
 
-            print("Robot:"+ robot_brain)
-            robot_mouth.say(robot_brain)
-            robot_mouth.runAndWait()
-    voice_recognition()
-elif message == 2 :
-    print("system will be close right now.")
-    sys.exit()
-else :
-    print("Wrong")
-    return False
-    sys.exit()
+vrImg = Image.open('/Users/Robert/Downloads/img_18524.png')
+vrImg = vrImg.resize((60, 60), Image.ANTIALIAS) 
+img = ImageTk.PhotoImage(vrImg)
+
+btn1 = Button(app, image = img, command = voiceRec, borderwidth = 0)
+btn1.pack(pady = 20)
+
+loading = Label(app, text ='')
+loading.pack(pady = 20)
+
+app.mainloop()
